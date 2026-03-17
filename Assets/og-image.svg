@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#050816"/>
+      <stop offset="1" stop-color="#1e3a8a"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="900" cy="140" r="160" fill="rgba(96,165,250,0.2)"/>
+  <circle cx="280" cy="520" r="220" fill="rgba(96,165,250,0.15)"/>
+  <text x="90" y="260" fill="#f8f8ff" font-size="72" font-family="Orbitron, sans-serif" letter-spacing="6">
+    GAZILLION
+  </text>
+  <text x="90" y="330" fill="#94a3b8" font-size="28" font-family="Space Mono, monospace" letter-spacing="3">
+    Intelligent Digital Systems
+  </text>
+</svg>

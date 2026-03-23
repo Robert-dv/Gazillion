@@ -1761,6 +1761,16 @@ body.theme-light .gim-panel {
 
 
 @media (max-width: 900px) {
+  .section:not(.hero) {
+    content-visibility: visible;
+    contain-intrinsic-size: auto;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
   .nav-links {
     position: fixed;
     top: 64px;

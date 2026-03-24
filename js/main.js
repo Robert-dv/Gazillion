@@ -404,13 +404,18 @@ const getContactPayload = (form) => {
   };
 };
 
+const getContactEndpoint = (form) => {
+  const endpoint = form.dataset.endpoint || form.getAttribute("action") || "";
+  return endpoint.trim() || "/api/contact";
+};
+
 contactForm?.addEventListener("submit", async (event) => {
   event.preventDefault();
   if (!contactForm.reportValidity()) return;
 
-  const endpoint = contactForm.dataset.endpoint;
-  if (!endpoint) {
-    setFormStatus("Set the contact form endpoint before sending.", "error");
+  const endpoint = getContactEndpoint(contactForm);
+  if (!endpoint || endpoint.includes("YOUR-RENDER-API")) {
+    setFormStatus("Contact endpoint is not set. Update it and try again.", "error");
     return;
   }
 

@@ -1813,7 +1813,28 @@ body.theme-light .gim-panel {
   }
 
   .section {
-    padding: 90px 0;
+    padding: 80px 0;
+  }
+
+  .hero {
+    padding-bottom: 56px;
+  }
+
+  .about {
+    padding-top: 56px;
+    padding-bottom: 40px;
+  }
+
+  .services {
+    padding-top: 40px;
+  }
+
+  .mission-grid {
+    margin-top: 28px;
+  }
+
+  .section-head {
+    margin-bottom: 34px;
   }
 
   .nav-inner {
@@ -1885,6 +1906,11 @@ body.theme-light .gim-panel {
 
   .particles span {
     opacity: 0.2;
+  }
+
+  .mission-visual .scan-core,
+  .mission-visual .scan-aux {
+    display: none;
   }
 }
 

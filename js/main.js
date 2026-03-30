@@ -1,5 +1,4 @@
 const body = document.body;
-const themeToggle = document.getElementById("themeToggle");
 const menuToggle = document.getElementById("menuToggle");
 const navLinks = document.getElementById("navLinks");
 const scrollBar = document.querySelector(".scroll-bar");
@@ -9,7 +8,6 @@ const sharedOrb = document.querySelector(".shared-orb");
 const sharedTri = document.querySelector(".shared-tri");
 const sharedWestern = document.querySelector(".shared-western");
 const sharedRing = document.querySelector(".shared-ring");
-const sharedPalm = document.querySelector(".shared-palm");
 const heroAnchor = document.querySelector(".hero-orb");
 const aboutAnchor = document.querySelector(".about-orb");
 const heroTriAnchor = document.querySelector(".hero-tri");
@@ -20,39 +18,34 @@ const projectsWestAnchor = document.querySelector(".projects-west");
 const aboutRingAnchor = document.querySelector(".about-ring");
 const missionRingAnchor = document.querySelector(".mission-ring");
 const servicesRingAnchor = document.querySelector(".services-ring");
-const testimonialsPalmAnchor = document.querySelector(".testimonials-palm");
-const contactPalmAnchor = document.querySelector(".contact-palm");
 const heroSection = document.getElementById("hero");
 const aboutSection = document.getElementById("about");
 const dividerSection = document.querySelector(".section-divider");
 const servicesSection = document.getElementById("services");
 const floaterSection = document.querySelector(".section-floater");
 const missionGrid = document.querySelector(".mission-grid");
+const heroBackgroundVideo = document.querySelector(".hero-video video");
 
-const updateThemeUI = (isLight) => {
-  if (!themeToggle) return;
-  themeToggle.setAttribute("aria-pressed", String(isLight));
-  const label = themeToggle.querySelector(".toggle-label");
-  if (label) {
-    label.textContent = isLight ? "Dark" : "Light";
-  }
+const applyDarkThemeOnly = () => {
+  body.classList.remove("theme-light");
+  body.classList.add("theme-dark");
+  localStorage.removeItem("gazillion-theme");
 };
 
-const applyTheme = (theme) => {
-  body.classList.toggle("theme-light", theme === "light");
-  body.classList.toggle("theme-dark", theme !== "light");
-  updateThemeUI(theme === "light");
+applyDarkThemeOnly();
+
+const setHeroVideoPlaybackRate = () => {
+  if (!heroBackgroundVideo) return;
+  const slowRate = 0.72;
+  heroBackgroundVideo.defaultPlaybackRate = slowRate;
+  heroBackgroundVideo.playbackRate = slowRate;
 };
 
-const storedTheme = localStorage.getItem("gazillion-theme");
-applyTheme(storedTheme || "dark");
-
-themeToggle?.addEventListener("click", () => {
-  const isLight = body.classList.contains("theme-light");
-  const nextTheme = isLight ? "dark" : "light";
-  localStorage.setItem("gazillion-theme", nextTheme);
-  applyTheme(nextTheme);
-});
+if (heroBackgroundVideo) {
+  heroBackgroundVideo.addEventListener("loadedmetadata", setHeroVideoPlaybackRate);
+  heroBackgroundVideo.addEventListener("play", setHeroVideoPlaybackRate);
+  setHeroVideoPlaybackRate();
+}
 
 menuToggle?.addEventListener("click", () => {
   navLinks?.classList.toggle("open");
@@ -100,12 +93,6 @@ const updateRingMetrics = () => {
   ringSize = sharedRing.getBoundingClientRect().width || 0;
 };
 
-let palmSize = 0;
-const updatePalmMetrics = () => {
-  if (!sharedPalm) return;
-  palmSize = sharedPalm.getBoundingClientRect().width || 0;
-};
-
 const getCenter = (element) => {
   const rect = element.getBoundingClientRect();
   return {
@@ -132,8 +119,8 @@ const updateOrbPosition = () => {
   const aboutCenter = getCenter(aboutAnchor);
   const x = lerp(heroCenter.x, aboutCenter.x, t);
   const y = lerp(heroCenter.y, aboutCenter.y, t);
-  const scale = lerp(1, 0.85, t);
-  const rotate = lerp(0, 40, t);
+  const scale = lerp(1, 0.9, t);
+  const rotate = lerp(0, 20, t);
   sharedOrb.style.transform = `translate3d(${x - orbSize / 2}px, ${
     y - orbSize / 2
   }px, 0) scale(${scale}) rotate(${rotate}deg)`;
@@ -149,8 +136,8 @@ const updateTriPosition = () => {
   const dividerCenter = getCenter(dividerTriAnchor);
   const x = lerp(heroCenter.x, dividerCenter.x, t);
   const y = lerp(heroCenter.y, dividerCenter.y, t);
-  const scale = lerp(1, 0.9, t);
-  const rotate = lerp(0, -24, t);
+  const scale = lerp(1, 0.95, t);
+  const rotate = lerp(0, -14, t);
   sharedTri.style.transform = `translate3d(${x - triSize / 2}px, ${
     y - triSize / 2
   }px, 0) scale(${scale}) rotate(${rotate}deg)`;
@@ -174,11 +161,11 @@ const updateWesternPosition = () => {
   const projectsCenter = getCenter(projectsWestAnchor);
   const x = lerp(servicesCenter.x, projectsCenter.x, t);
   const y = lerp(servicesCenter.y, projectsCenter.y, t);
-  const scale = lerp(0.9, 0.7, t);
+  const scale = lerp(0.9, 0.78, t);
   sharedWestern.style.transform = `translate3d(${x - westernSize / 2}px, ${
     y - westernSize / 2
   }px, 0) scale(${scale})`;
-  sharedWestern.style.opacity = `${lerp(0.5, 0.75, t)}`;
+  sharedWestern.style.opacity = `${lerp(0.42, 0.58, t)}`;
 };
 
 const updateRingPosition = () => {
@@ -197,7 +184,7 @@ const updateRingPosition = () => {
     const t = range === 0 ? 1 : clamp((scrollRef - aboutPage.y) / range, 0, 1);
     const x = lerp(aboutCenter.x, missionCenter.x, t);
     const y = lerp(aboutCenter.y, missionCenter.y, t);
-    const scale = lerp(1, 0.92, t);
+    const scale = lerp(1, 0.95, t);
     sharedRing.style.transform = `translate3d(${x - ringSize / 2}px, ${
       y - ringSize / 2
     }px, 0) scale(${scale})`;
@@ -208,29 +195,16 @@ const updateRingPosition = () => {
   const t = range === 0 ? 1 : clamp((scrollRef - missionPage.y) / range, 0, 1);
   const x = lerp(missionCenter.x, servicesCenter.x, t);
   const y = lerp(missionCenter.y, servicesCenter.y, t);
-  const scale = lerp(0.92, 0.85, t);
+  const scale = lerp(0.95, 0.9, t);
   sharedRing.style.transform = `translate3d(${x - ringSize / 2}px, ${
     y - ringSize / 2
   }px, 0) scale(${scale})`;
 };
 
-const updatePalmPosition = () => {
-  if (!sharedPalm || !testimonialsPalmAnchor || !contactPalmAnchor) return;
-  const testimonialsPage = getPageCenter(testimonialsPalmAnchor);
-  const contactPage = getPageCenter(contactPalmAnchor);
-  const scrollRef = window.scrollY + window.innerHeight * 0.5;
-  const range = contactPage.y - testimonialsPage.y;
-  const t = range === 0 ? 1 : clamp((scrollRef - testimonialsPage.y) / range, 0, 1);
-  const testimonialsCenter = getCenter(testimonialsPalmAnchor);
-  const contactCenter = getCenter(contactPalmAnchor);
-  const x = lerp(testimonialsCenter.x, contactCenter.x, t);
-  const y = lerp(testimonialsCenter.y, contactCenter.y, t);
-  const scale = lerp(1, 0.8, t);
-  sharedPalm.style.transform = `translate3d(${x - palmSize / 2}px, ${
-    y - palmSize / 2
-  }px, 0) scale(${scale})`;
-  sharedPalm.style.opacity = `${lerp(0.35, 0.55, t)}`;
-};
+revealItems.forEach((item, index) => {
+  const staggerDelay = (index % 4) * 70;
+  item.style.setProperty("--reveal-delay", `${staggerDelay}ms`);
+});
 
 let scrollTicking = false;
 window.addEventListener("scroll", () => {
@@ -242,7 +216,6 @@ window.addEventListener("scroll", () => {
       updateTriPosition();
       updateWesternPosition();
       updateRingPosition();
-      updatePalmPosition();
       scrollTicking = false;
     });
   }
@@ -257,8 +230,6 @@ updateWesternMetrics();
 updateWesternPosition();
 updateRingMetrics();
 updateRingPosition();
-updatePalmMetrics();
-updatePalmPosition();
 
 window.addEventListener("resize", () => {
   updateOrbMetrics();
@@ -269,8 +240,6 @@ window.addEventListener("resize", () => {
   updateWesternPosition();
   updateRingMetrics();
   updateRingPosition();
-  updatePalmMetrics();
-  updatePalmPosition();
 });
 
 const revealObserver = new IntersectionObserver(
@@ -282,7 +251,7 @@ const revealObserver = new IntersectionObserver(
       }
     });
   },
-  { threshold: 0.2 }
+  { threshold: 0.16 }
 );
 
 revealItems.forEach((item) => revealObserver.observe(item));
@@ -335,8 +304,6 @@ window.addEventListener("load", () => {
   updateWesternPosition();
   updateRingMetrics();
   updateRingPosition();
-  updatePalmMetrics();
-  updatePalmPosition();
 });
 
 const gimAssistant = document.querySelector(".gim-assistant");

@@ -267,7 +267,7 @@
         <div class="container hero-content">
           <div class="hero-text">
             <p class="eyebrow">GAZILLION / FUTURE SYSTEMS</p>
-            <h1>Gazillion Company Builds Intelligent Digital Systems</h1>
+            <h1>Gazillion Company<br>Builds Intelligent Systems</h1>
             <p class="lead">
               We are a Rwanda-based IT and AI engineering company designing
               software, cloud platforms, and automation systems that scale with
@@ -293,28 +293,30 @@
             </div>
           </div>
           <div class="hero-visual">
-            <div class="orbital">
-              <span class="orb-anchor hero-orb" aria-hidden="true"></span>
-              <div class="radar-scan" aria-hidden="true"></div>
-              <div class="ring ring-one"></div>
-              <div class="ring ring-two"></div>
-              <div class="ring ring-three"></div>
+            <div class="ide-card ide-hero" id="heroIde">
+              <div class="ide-titlebar">
+                <div class="ide-dots">
+                  <span class="ide-dot dot-red"></span>
+                  <span class="ide-dot dot-yellow"></span>
+                  <span class="ide-dot dot-green"></span>
+                </div>
+                <span class="ide-title-text">anyservice_sdk.js</span>
+                <span class="ide-badge">LIVE</span>
+              </div>
+              <div class="ide-code-panel" id="heroCodePanel">
+                <div class="ide-code-lines" id="heroCodeLines"></div>
+              </div>
+              <div class="ide-panel-divider">
+                <span class="ide-panel-label">Terminal</span>
+              </div>
+              <div class="ide-body" id="heroIdeBody">
+                <div class="ide-line">
+                  <span class="ide-prompt">$</span>
+                  <span class="ide-typed" id="heroTyped"></span><span class="ide-cursor"></span>
+                </div>
+                <div class="ide-output-stream" id="heroStream"></div>
+              </div>
             </div>
-            <span class="tri-anchor hero-tri" aria-hidden="true"></span>
-            <img
-              class="float-item item-1"
-              src="Assets/ill-tb-2.svg"
-              alt=""
-              loading="lazy"
-              decoding="async"
-            />
-            <img
-              class="float-item item-2"
-              src="Assets/ill-tb-7.svg"
-              alt=""
-              loading="lazy"
-              decoding="async"
-            />
           </div>
         </div>
       </section>
@@ -322,9 +324,23 @@
       <section id="about" class="section about">
         <div class="container split">
           <div class="about-visual reveal">
-            <div class="globe-shell">
-              <span class="orb-anchor about-orb" aria-hidden="true"></span>
-              <span class="ring-anchor about-ring" aria-hidden="true"></span>
+            <div class="ide-card ide-about" id="aboutIde">
+              <div class="ide-titlebar">
+                <div class="ide-dots">
+                  <span class="ide-dot dot-red"></span>
+                  <span class="ide-dot dot-yellow"></span>
+                  <span class="ide-dot dot-green-bright"></span>
+                </div>
+                <span class="ide-title-text">net_monitor.sh</span>
+                <span class="ide-badge ide-badge-net">NET</span>
+              </div>
+              <div class="ide-body" id="aboutIdeBody">
+                <div class="ide-line">
+                  <span class="ide-prompt ide-prompt-green">$</span>
+                  <span class="ide-typed" id="aboutTyped"></span><span class="ide-cursor ide-cursor-green"></span>
+                </div>
+                <div class="ide-output-stream" id="aboutStream"></div>
+              </div>
             </div>
           </div>
           <div class="about-text reveal">
@@ -371,24 +387,40 @@
             </p>
           </div>
           <div class="mission-visual reveal">
-            <div class="founder-card">
-              <span class="ring-anchor mission-ring" aria-hidden="true"></span>
-              <p class="founder-role">Founder & CEO</p>
-              <h3>
-                <a class="founder-name-link" href="ceo-robert-uyisenga.html">Robert UYISENGA</a>
-              </h3>
-              <p>
-                Robert UYISENGA is a young Rwandan male Computer Engineer,
-                digital enthusiast, and innovator. He leads Gazillion Company
-                with practical AI, software engineering, automation, and cloud
-                architecture expertise, driven by Rwanda and Africa digital
-                transformation for future technology.
-              </p>
-              <div class="founder-skills">
+            <div class="capability-block">
+              <div class="cap-stats-grid">
+                <div class="cap-stat">
+                  <span class="cap-val">12+</span>
+                  <span class="cap-lbl">Active Builds</span>
+                </div>
+                <div class="cap-stat">
+                  <span class="cap-val">5+</span>
+                  <span class="cap-lbl">Years Engineering</span>
+                </div>
+                <div class="cap-stat">
+                  <span class="cap-val">24/7</span>
+                  <span class="cap-lbl">Ops Coverage</span>
+                </div>
+                <div class="cap-stat">
+                  <span class="cap-val">99.9%</span>
+                  <span class="cap-lbl">Uptime Target</span>
+                </div>
+              </div>
+              <div class="cap-divider"></div>
+              <p class="cap-label eyebrow">Core Engineering Stack</p>
+              <div class="cap-tags">
                 <span>Applied AI</span>
                 <span>ML Workflows</span>
                 <span>Cloud Platforms</span>
                 <span>Automation Design</span>
+                <span>Systems Architecture</span>
+                <span>API Engineering</span>
+              </div>
+              <div class="cap-ceo-link">
+                <a href="ceo-robert-uyisenga.html">
+                  <span class="cap-ceo-role">Founder &amp; CEO</span>
+                  <span class="cap-ceo-name">Robert UYISENGA &rarr;</span>
+                </a>
               </div>
             </div>
           </div>
@@ -443,27 +475,46 @@
             <p class="eyebrow">Process</p>
             <h2>How we deliver intelligent systems.</h2>
           </div>
-          <div class="process-grid">
-            <article class="process-card reveal">
-              <span class="step">01</span>
-              <h3>Discovery</h3>
-              <p>We map your vision, users, and operational pain points.</p>
-            </article>
-            <article class="process-card reveal">
-              <span class="step">02</span>
-              <h3>Architecture</h3>
-              <p>We design scalable, secure foundations and data flows.</p>
-            </article>
-            <article class="process-card reveal">
-              <span class="step">03</span>
-              <h3>Build</h3>
-              <p>We ship performant systems with automation and monitoring.</p>
-            </article>
-            <article class="process-card reveal">
-              <span class="step">04</span>
-              <h3>Scale</h3>
-              <p>We optimize, iterate, and grow alongside your mission.</p>
-            </article>
+          <div class="process-timeline">
+            <div class="pt-step reveal">
+              <div class="pt-marker">
+                <span class="pt-num">01</span>
+                <span class="pt-connector"></span>
+              </div>
+              <div class="pt-content">
+                <h3>Discovery</h3>
+                <p>We map your vision, users, and operational pain points to define a clear path forward.</p>
+              </div>
+            </div>
+            <div class="pt-step reveal">
+              <div class="pt-marker">
+                <span class="pt-num">02</span>
+                <span class="pt-connector"></span>
+              </div>
+              <div class="pt-content">
+                <h3>Architecture</h3>
+                <p>We design scalable, secure foundations and data flows built for long-term resilience.</p>
+              </div>
+            </div>
+            <div class="pt-step reveal">
+              <div class="pt-marker">
+                <span class="pt-num">03</span>
+                <span class="pt-connector"></span>
+              </div>
+              <div class="pt-content">
+                <h3>Build</h3>
+                <p>We ship performant systems with automation, CI/CD pipelines, and live monitoring.</p>
+              </div>
+            </div>
+            <div class="pt-step reveal pt-last">
+              <div class="pt-marker">
+                <span class="pt-num">04</span>
+              </div>
+              <div class="pt-content">
+                <h3>Scale</h3>
+                <p>We optimize, iterate, and grow alongside your mission with full operational support.</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -484,104 +535,42 @@
             <p class="eyebrow">Projects</p>
             <h2>Ongoing builds powering next-generation services.</h2>
           </div>
-          <div class="projects-grid">
-            <article class="project-card reveal">
-              <div class="project-head">
-                <div>
-                  <h3>
-                    <a href="https://www.anyservice.rw" target="_blank" rel="noopener">AnyService</a>
-                  </h3>
-                  <p>Unified service marketplace infrastructure.</p>
-                </div>
-                <span class="badge completed">COMPLETED</span>
+          <div class="project-showcase reveal">
+            <div class="pshow-left">
+              <div class="pshow-meta">
+                <span class="pshow-dot"></span>
+                <span class="pshow-status">Live &amp; Active</span>
               </div>
-              <details class="project-more">
-                <summary>Read more</summary>
-                <div class="project-body">
-                  <p>
-                    AnyService is a digital marketplace in continuous evolution,
-                    connecting active service seekers with trusted professionals
-                    and service providers. With GPS-powered discovery, clients
-                    can find your exact business location through the "Near Me"
-                    feature.
-                  </p>
-                  <h4>Benefits for providers</h4>
-                  <ul>
-                    <li>
-                      Website cost: No need for a separate website as a startup
-                      or professional. AnyService lets you build a profile with
-                      business data, descriptions, services, and prices.
-                    </li>
-                    <li>
-                      No agents or commissions: Talk directly to clients and
-                      close deals for free.
-                    </li>
-                    <li>
-                      Business discovery: When you launch, nearby and cross-region
-                      service seekers are notified that you're available.
-                    </li>
-                  </ul>
-                  <p>
-                    It's time for providers to stand out, get discovered, and
-                    grow.
-                  </p>
-                  <h4>For service seekers</h4>
-                  <ul>
-                    <li>Discover businesses you never knew existed nearby.</li>
-                    <li>
-                      Fair prices: No more agent fees. Connect directly to the
-                      business.
-                    </li>
-                    <li>Wider choice of verified, trusted professionals.</li>
-                  </ul>
-                  <a class="project-link" href="https://www.anyservice.rw" target="_blank" rel="noopener">
-                    Join the AnyService family
-                  </a>
+              <h3 class="pshow-name">AnyService</h3>
+              <p class="pshow-type">Service Marketplace Platform</p>
+              <div class="pshow-completion">
+                <div class="pshow-bar-labels">
+                  <span>Completion</span>
+                  <span class="pshow-pct">100%</span>
                 </div>
-              </details>
-              <div class="progress-wrap" data-progress="100">
-                <svg class="progress-ring" width="140" height="140">
-                  <circle class="progress-bg" cx="70" cy="70" r="58"></circle>
-                  <circle
-                    class="progress-bar"
-                    cx="70"
-                    cy="70"
-                    r="58"
-                    data-progress="100"
-                  ></circle>
-                </svg>
-                <div class="progress-meta">
-                  <span class="progress-value">100%</span>
-                  <span class="progress-label">Complete</span>
+                <div class="pshow-bar">
+                  <div class="pshow-bar-fill" style="width:0%"></div>
                 </div>
               </div>
-            </article>
-
-            <article class="project-card reveal">
-              <div class="project-head">
-                <div>
-                  <h3>BikeGo</h3>
-                  <p>Smart mobility and logistics coordination stack.</p>
-                </div>
-                <span class="badge">ONGOING</span>
+              <a class="btn primary pshow-cta" href="https://www.anyservice.rw" target="_blank" rel="noopener">Visit AnyService &rarr;</a>
+            </div>
+            <div class="pshow-divider" aria-hidden="true"></div>
+            <div class="pshow-right">
+              <p class="pshow-desc">A digital marketplace connecting service seekers with trusted professionals across Rwanda and Africa. GPS-powered discovery, zero-commission model, and verified business profiles — built on Gazillion's intelligent infrastructure stack.</p>
+              <ul class="pshow-features">
+                <li><span class="pf-dot"></span> GPS-powered "Near Me" business discovery</li>
+                <li><span class="pf-dot"></span> Zero agent commissions — direct provider connection</li>
+                <li><span class="pf-dot"></span> Business profile with services, pricing &amp; hours</li>
+                <li><span class="pf-dot"></span> Cross-region discovery &amp; real-time notifications</li>
+              </ul>
+              <div class="pshow-stack">
+                <span>React Native</span>
+                <span>Node.js</span>
+                <span>PostgreSQL</span>
+                <span>GPS API</span>
+                <span>Cloud Infra</span>
               </div>
-              <div class="progress-wrap" data-progress="45">
-                <svg class="progress-ring" width="140" height="140">
-                  <circle class="progress-bg" cx="70" cy="70" r="58"></circle>
-                  <circle
-                    class="progress-bar"
-                    cx="70"
-                    cy="70"
-                    r="58"
-                    data-progress="45"
-                  ></circle>
-                </svg>
-                <div class="progress-meta">
-                  <span class="progress-value">Ongoing</span>
-                  <span class="progress-label">Integration</span>
-                </div>
-              </div>
-            </article>
+            </div>
           </div>
         </div>
       </section>
@@ -592,30 +581,53 @@
             <p class="eyebrow">Clients</p>
             <h2>Trusted by teams building tomorrow.</h2>
           </div>
-          <div class="testimonials-grid">
-            <article class="testimonial-card reveal">
-              <p>
-                "Gazillion delivered a system that made our operations feel
-                effortless. The automation layer alone saved weeks each month."
-              </p>
-              <span class="client-name">Operations Lead</span>
-            </article>
-            <article class="testimonial-card reveal">
-              <p>
-                "Their architecture and build quality are world-class. We felt
-                like we were collaborating with a true product partner."
-              </p>
-              <span class="client-name">Product Director</span>
-            </article>
-            <article class="testimonial-card reveal">
-              <p>
-                "Gazillion helped us launch faster with a premium, resilient
-                platform that investors immediately trusted."
-              </p>
-              <span class="client-name">Founder</span>
-            </article>
+        </div>
+        <div class="marquee-outer" aria-label="Client testimonials">
+          <div class="marquee-track">
+            <div class="tcard">
+              <p class="tcard-quote">"Gazillion delivered a system that made our operations feel effortless. The automation layer alone saved weeks each month."</p>
+              <span class="tcard-name">Operations Lead</span>
+            </div>
+            <div class="tcard">
+              <p class="tcard-quote">"Their architecture and build quality are world-class. We felt like we were collaborating with a true product partner."</p>
+              <span class="tcard-name">Product Director</span>
+            </div>
+            <div class="tcard">
+              <p class="tcard-quote">"Gazillion helped us launch faster with a premium, resilient platform that investors immediately trusted."</p>
+              <span class="tcard-name">Founder</span>
+            </div>
+            <div class="tcard">
+              <p class="tcard-quote">"The AI integration they delivered transformed how we handle data. Precise, secure, and always operational."</p>
+              <span class="tcard-name">CTO, FinTech Labs</span>
+            </div>
+            <div class="tcard">
+              <p class="tcard-quote">"Working with Gazillion felt like having a dedicated engineering team that truly understood our goals."</p>
+              <span class="tcard-name">Product Lead</span>
+            </div>
+            <div class="tcard" aria-hidden="true">
+              <p class="tcard-quote">"Gazillion delivered a system that made our operations feel effortless. The automation layer alone saved weeks each month."</p>
+              <span class="tcard-name">Operations Lead</span>
+            </div>
+            <div class="tcard" aria-hidden="true">
+              <p class="tcard-quote">"Their architecture and build quality are world-class. We felt like we were collaborating with a true product partner."</p>
+              <span class="tcard-name">Product Director</span>
+            </div>
+            <div class="tcard" aria-hidden="true">
+              <p class="tcard-quote">"Gazillion helped us launch faster with a premium, resilient platform that investors immediately trusted."</p>
+              <span class="tcard-name">Founder</span>
+            </div>
+            <div class="tcard" aria-hidden="true">
+              <p class="tcard-quote">"The AI integration they delivered transformed how we handle data. Precise, secure, and always operational."</p>
+              <span class="tcard-name">CTO, FinTech Labs</span>
+            </div>
+            <div class="tcard" aria-hidden="true">
+              <p class="tcard-quote">"Working with Gazillion felt like having a dedicated engineering team that truly understood our goals."</p>
+              <span class="tcard-name">Product Lead</span>
+            </div>
           </div>
-          <div class="client-strip reveal">
+        </div>
+        <div class="container">
+          <div class="client-logos reveal">
             <span>Digital Mobility</span>
             <span>FinTech Labs</span>
             <span>HealthNet</span>
@@ -868,6 +880,27 @@
         <button class="gim-next" type="button">Next tip</button>
       </div>
     </div>
+    <div class="as-ad" id="asAd" aria-label="AnyService promotion">
+      <button class="as-tab" id="asTab" aria-expanded="false" aria-controls="asPanel">
+        <span class="as-tab-dot"></span>
+        <span class="as-tab-text">AnyService</span>
+      </button>
+      <div class="as-panel" id="asPanel" role="region">
+        <button class="as-close" id="asClose" aria-label="Close AnyService ad">&#10005;</button>
+        <p class="as-eyebrow">New Product &mdash; Gazillion</p>
+        <div class="as-msgs" id="asMsgs">
+          <span class="as-msg is-active">Find trusted services near you.</span>
+          <span class="as-msg">Zero commissions. Direct connect.</span>
+          <span class="as-msg">Grow your business across Rwanda.</span>
+          <span class="as-msg">GPS-powered local discovery.</span>
+        </div>
+        <p class="as-tagline">The service marketplace for Africa.</p>
+        <a class="btn primary as-btn" href="https://www.anyservice.rw" target="_blank" rel="noopener">
+          Visit AnyService &rarr;
+        </a>
+      </div>
+    </div>
+
     <script defer data-domain="gazillion.rw" src="https://plausible.io/js/script.js"></script>
     <script src="js/main.js"></script>
   </body>

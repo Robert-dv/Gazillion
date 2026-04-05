@@ -376,6 +376,260 @@ const getContactEndpoint = (form) => {
   return endpoint.trim() || "/api/contact";
 };
 
+// ── IDE Terminal Animation System ───────────────────────────────────────────
+const createIdeAnimator = ({ typedEl, streamEl, command, sequence }) => {
+  let active = true;
+
+  const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+  const typeText = async (el, text) => {
+    for (const char of text) {
+      if (!active) return;
+      el.textContent += char;
+      await sleep(42 + Math.random() * 28);
+    }
+  };
+
+  const buildProgressLine = (streamEl, { tag, tagClass, text, targetPct }) => {
+    const line = document.createElement("div");
+    line.className = "ide-out-line";
+
+    const wrap = document.createElement("div");
+    wrap.className = "ide-progress-wrap";
+
+    if (tag) {
+      const tagEl = document.createElement("span");
+      tagEl.className = `ide-tag ${tagClass}`;
+      tagEl.textContent = tag;
+      wrap.appendChild(tagEl);
+    }
+
+    const textEl = document.createElement("span");
+    textEl.className = "ide-out-text";
+    textEl.textContent = text;
+    wrap.appendChild(textEl);
+
+    const barWrap = document.createElement("div");
+    barWrap.className = "ide-bar";
+    const fill = document.createElement("div");
+    fill.className = "ide-bar-fill";
+    fill.style.width = "0%";
+    barWrap.appendChild(fill);
+    wrap.appendChild(barWrap);
+
+    const pctEl = document.createElement("span");
+    pctEl.className = "ide-bar-pct";
+    pctEl.textContent = "0%";
+    wrap.appendChild(pctEl);
+
+    line.appendChild(wrap);
+    streamEl.appendChild(line);
+
+    return new Promise((resolve) => {
+      const dur = 1300;
+      const start = performance.now();
+      const tick = (now) => {
+        const t = Math.min((now - start) / dur, 1);
+        const eased = t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+        const current = Math.round(eased * targetPct);
+        fill.style.width = current + "%";
+        pctEl.textContent = current + "%";
+        if (t < 1) {
+          requestAnimationFrame(tick);
+        } else {
+          resolve();
+        }
+      };
+      requestAnimationFrame(tick);
+    });
+  };
+
+  const appendTextLine = (streamEl, { tag, tagClass, text }) => {
+    const line = document.createElement("div");
+    line.className = "ide-out-line";
+
+    if (tag) {
+      const tagEl = document.createElement("span");
+      tagEl.className = `ide-tag ${tagClass}`;
+      tagEl.textContent = tag;
+      line.appendChild(tagEl);
+    }
+
+    const textEl = document.createElement("span");
+    textEl.className = "ide-out-text";
+    textEl.textContent = text;
+    line.appendChild(textEl);
+
+    streamEl.appendChild(line);
+  };
+
+  const run = async () => {
+    while (active) {
+      typedEl.textContent = "";
+      streamEl.innerHTML = "";
+
+      await typeText(typedEl, command);
+      await sleep(360);
+
+      for (const step of sequence) {
+        if (!active) break;
+        if (step.delay) await sleep(step.delay);
+
+        if (step.progress !== undefined) {
+          await buildProgressLine(streamEl, {
+            tag: step.tag,
+            tagClass: step.tagClass,
+            text: step.text,
+            targetPct: step.progress,
+          });
+        } else {
+          appendTextLine(streamEl, step);
+        }
+
+        await sleep(step.pause ?? 320);
+      }
+
+      await sleep(4000);
+    }
+  };
+
+  run();
+};
+
+// ── Code Panel Animator (Hero IDE upper section) ─────────────────────────────
+const startCodePanel = (linesEl) => {
+  if (!linesEl) return;
+
+  const codeSequence = [
+    { tokens: [{ t: "// AnyService SDK — Gazillion Platform v2.4", c: "cl-comment" }] },
+    { tokens: [{ t: "import ", c: "cl-keyword" }, { t: "{ GazillionSDK } ", c: "cl-plain" }, { t: "from ", c: "cl-keyword" }, { t: "'@gazillion/core'", c: "cl-string" }, { t: ";", c: "cl-plain" }] },
+    { tokens: [] },
+    { tokens: [{ t: "const ", c: "cl-keyword" }, { t: "sdk ", c: "cl-plain" }, { t: "= new ", c: "cl-keyword" }, { t: "GazillionSDK", c: "cl-fn" }, { t: "({", c: "cl-plain" }] },
+    { tokens: [{ t: "  project: ", c: "cl-plain" }, { t: "'anyservice'", c: "cl-string" }, { t: ",", c: "cl-plain" }] },
+    { tokens: [{ t: "  env: ", c: "cl-plain" }, { t: "'production'", c: "cl-string" }, { t: ",", c: "cl-plain" }] },
+    { tokens: [{ t: "  region: ", c: "cl-plain" }, { t: "'af-east-1'", c: "cl-string" }, { t: ",", c: "cl-plain" }] },
+    { tokens: [{ t: "});", c: "cl-plain" }] },
+    { tokens: [] },
+    { tokens: [{ t: "const ", c: "cl-keyword" }, { t: "providers ", c: "cl-plain" }, { t: "= await ", c: "cl-keyword" }, { t: "sdk.discover", c: "cl-fn" }, { t: "({", c: "cl-plain" }] },
+    { tokens: [{ t: "  mode: ", c: "cl-plain" }, { t: "'near-me'", c: "cl-string" }, { t: ", radius: ", c: "cl-plain" }, { t: "5", c: "cl-num" }, { t: ",", c: "cl-plain" }] },
+    { tokens: [{ t: "  verified: ", c: "cl-plain" }, { t: "true", c: "cl-keyword" }, { t: ", limit: ", c: "cl-plain" }, { t: "20", c: "cl-num" }, { t: ",", c: "cl-plain" }] },
+    { tokens: [{ t: "});", c: "cl-plain" }] },
+    { tokens: [] },
+    { tokens: [{ t: "await ", c: "cl-keyword" }, { t: "sdk.deploy", c: "cl-fn" }, { t: "({ version: ", c: "cl-plain" }, { t: "'2.4.0'", c: "cl-string" }, { t: " });", c: "cl-plain" }] },
+  ];
+
+  const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+  const run = async () => {
+    while (true) {
+      linesEl.innerHTML = "";
+      for (let i = 0; i < codeSequence.length; i++) {
+        const row = codeSequence[i];
+        const line = document.createElement("div");
+        line.className = "ide-cl";
+
+        const lnSpan = document.createElement("span");
+        lnSpan.className = "cl-ln";
+        lnSpan.textContent = String(i + 1).padStart(2, " ");
+        line.appendChild(lnSpan);
+
+        for (const tok of row.tokens) {
+          const span = document.createElement("span");
+          span.className = tok.c;
+          span.textContent = tok.t;
+          line.appendChild(span);
+        }
+
+        linesEl.appendChild(line);
+        await sleep(140 + Math.random() * 60);
+      }
+      await sleep(5500);
+    }
+  };
+
+  run();
+};
+
+const heroCodeLinesEl = document.getElementById("heroCodeLines");
+startCodePanel(heroCodeLinesEl);
+
+// Project showcase bar animation
+const pshowBarFill = document.querySelector(".pshow-bar-fill");
+if (pshowBarFill) {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          pshowBarFill.style.width = "100%";
+        }, 400);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.4 });
+  observer.observe(pshowBarFill);
+}
+
+// Hero IDE – navy/cyan deployment terminal
+const heroTypedEl = document.getElementById("heroTyped");
+const heroStreamEl = document.getElementById("heroStream");
+
+if (heroTypedEl && heroStreamEl) {
+  createIdeAnimator({
+    typedEl: heroTypedEl,
+    streamEl: heroStreamEl,
+    command: "./deploy.sh --env production --region auto",
+    sequence: [
+      { tag: "RUN",  tagClass: "tag-run",  text: "Initializing deployment pipeline...", pause: 340 },
+      { tag: "OK",   tagClass: "tag-ok",   text: "Connected to Gazillion Cloud (us-east-1)", pause: 300 },
+      { tag: null,   tagClass: null,        text: "Building containers",      progress: 100, pause: 220 },
+      { tag: "INFO", tagClass: "tag-info", text: "Pulling gazillion/ai-core:latest", pause: 380 },
+      { tag: "RUN",  tagClass: "tag-run",  text: "Starting 14 microservices...", pause: 420 },
+      { tag: "OK",   tagClass: "tag-ok",   text: "AI inference engine ready", pause: 280 },
+      { tag: "OK",   tagClass: "tag-ok",   text: "API gateway connected  :443", pause: 300 },
+      { tag: null,   tagClass: null,        text: "Deploying to edge nodes",  progress: 100, pause: 200 },
+      { tag: "OK",   tagClass: "tag-ok",   text: "All 9/9 health checks passed", pause: 340 },
+      { tag: "INFO", tagClass: "tag-info", text: "Uptime: 99.97%  (30-day avg)", pause: 560 },
+      { tag: "RUN",  tagClass: "tag-run",  text: "monitor --live --interval 2s", pause: 320 },
+      { tag: "OK",   tagClass: "tag-ok",   text: "Requests/s: 2,418  ↑ +8%", pause: 340 },
+      { tag: "OK",   tagClass: "tag-ok",   text: "Avg latency: 12ms  P99: 38ms", pause: 340 },
+      { tag: "INFO", tagClass: "tag-info", text: "Active sessions: 847", pause: 300 },
+      { tag: "OK",   tagClass: "tag-ok",   text: "System fully operational ✓", pause: 380 },
+    ],
+  });
+}
+
+// About IDE – green network/hacking terminal
+const aboutTypedEl = document.getElementById("aboutTyped");
+const aboutStreamEl = document.getElementById("aboutStream");
+
+if (aboutTypedEl && aboutStreamEl) {
+  setTimeout(() => {
+    createIdeAnimator({
+      typedEl: aboutTypedEl,
+      streamEl: aboutStreamEl,
+      command: "./net_scan.sh --range 10.0.0.0/24 --mode full",
+      sequence: [
+        { tag: "NET",  tagClass: "tag-net",  text: "Initializing scan on 10.0.0.0/24", pause: 360 },
+        { tag: null,   tagClass: null,        text: "Scanning 256 hosts",  progress: 100, pause: 220 },
+        { tag: "OK",   tagClass: "tag-ok",   text: "Host 10.0.0.12  — active", pause: 240 },
+        { tag: "OK",   tagClass: "tag-ok",   text: "Host 10.0.0.47  — active", pause: 240 },
+        { tag: "OK",   tagClass: "tag-ok",   text: "Host 10.0.0.103 — active", pause: 270 },
+        { tag: "NET",  tagClass: "tag-net",  text: "Running port analysis on 3 hosts", pause: 380 },
+        { tag: "OK",   tagClass: "tag-ok",   text: "Open: 22, 80, 443, 8443", pause: 300 },
+        { tag: "WARN", tagClass: "tag-warn", text: "Unusual traffic: 10.0.0.91", pause: 420 },
+        { tag: "NET",  tagClass: "tag-net",  text: "Intrusion analysis running...", pause: 360 },
+        { tag: null,   tagClass: null,        text: "Analyzing packets",    progress: 100, pause: 200 },
+        { tag: "OK",   tagClass: "tag-ok",   text: "No threats detected", pause: 360 },
+        { tag: "INFO", tagClass: "tag-info", text: "Bandwidth: 847 MB/s  TX/RX", pause: 320 },
+        { tag: "INFO", tagClass: "tag-info", text: "Packets analyzed: 4.2M", pause: 360 },
+        { tag: "OK",   tagClass: "tag-ok",   text: "Network integrity: VERIFIED ✓", pause: 400 },
+      ],
+    });
+  }, 1600);
+}
+
+// ── End IDE Terminal Animation ───────────────────────────────────────────────
+
 contactForm?.addEventListener("submit", async (event) => {
   event.preventDefault();
   if (!contactForm.reportValidity()) return;
@@ -431,3 +685,59 @@ contactForm?.addEventListener("submit", async (event) => {
     }
   }
 });
+
+// ── AnyService Slide-In Ad ────────────────────────────────────────────────────
+(function initAsAd() {
+  const asAd    = document.getElementById("asAd");
+  const asTab   = document.getElementById("asTab");
+  const asClose = document.getElementById("asClose");
+  const msgs    = document.querySelectorAll(".as-msg");
+  if (!asAd || !asTab || !asClose || !msgs.length) return;
+
+  let open = false;
+  let msgIdx = 0;
+  let msgTimer = null;
+
+  const openAd = () => {
+    open = true;
+    asAd.classList.add("is-open");
+    asTab.setAttribute("aria-expanded", "true");
+    startMsgCycle();
+  };
+
+  const closeAd = () => {
+    open = false;
+    asAd.classList.remove("is-open");
+    asTab.setAttribute("aria-expanded", "false");
+    clearInterval(msgTimer);
+  };
+
+  const showMsg = (idx) => {
+    msgs.forEach((m) => m.classList.remove("is-active"));
+    msgs[idx].classList.add("is-active");
+  };
+
+  const startMsgCycle = () => {
+    clearInterval(msgTimer);
+    msgTimer = setInterval(() => {
+      msgIdx = (msgIdx + 1) % msgs.length;
+      showMsg(msgIdx);
+    }, 3200);
+  };
+
+  asTab.addEventListener("click", () => {
+    open ? closeAd() : openAd();
+  });
+
+  asClose.addEventListener("click", (e) => {
+    e.stopPropagation();
+    closeAd();
+  });
+
+  setTimeout(() => {
+    openAd();
+    setTimeout(() => {
+      if (open) closeAd();
+    }, 8000);
+  }, 2800);
+})();

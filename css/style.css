@@ -358,12 +358,15 @@ p {
 
 .nav {
   position: fixed;
-  top: 0;
-  width: 100%;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(1200px, calc(100% - 32px));
   z-index: 100;
-  background: rgba(7, 11, 18, 0.72);
-  backdrop-filter: blur(14px) saturate(160%);
-  border-bottom: 1px solid var(--line);
+  background: rgba(7, 11, 18, 0.78);
+  backdrop-filter: blur(18px) saturate(170%);
+  border: 1px solid var(--line);
+  border-radius: 14px;
 }
 
 body.theme-light .nav {
@@ -386,9 +389,9 @@ body.theme-light .hero-text .eyebrow {
   align-items: center;
   justify-content: space-between;
   gap: 20px;
-  width: min(1200px, 92vw);
-  margin: 0 auto;
-  padding: 14px 0;
+  width: 100%;
+  padding: 12px 24px;
+  box-sizing: border-box;
 }
 
 .brand {
@@ -1233,6 +1236,12 @@ body.theme-light .about-text p {
 .projects-video video {
   object-position: center 50%;
   opacity: calc(var(--video-media-opacity) - 0.04);
+}
+
+.process-video video {
+  object-position: center 60%;
+  opacity: calc(var(--video-media-opacity) + 0.14);
+  filter: saturate(0.9) contrast(1.1);
 }
 
 .projects::before {
@@ -2117,7 +2126,7 @@ body.theme-light .gim-panel {
   }
 
   .nav-inner {
-    padding: 10px 0;
+    padding: 10px 16px;
   }
 
   .nav-actions {

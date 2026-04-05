@@ -734,10 +734,6 @@ contactForm?.addEventListener("submit", async (event) => {
     closeAd();
   });
 
-  setTimeout(() => {
-    openAd();
-    setTimeout(() => {
-      if (open) closeAd();
-    }, 8000);
-  }, 2800);
+  // Open on load and stay open — only closes when user dismisses it
+  setTimeout(openAd, 900);
 })();

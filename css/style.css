@@ -3106,6 +3106,13 @@ body.theme-light .gim-panel {
   display: flex;
   align-items: flex-start;
   pointer-events: none;
+  --as-panel-w: 260px;
+  transform: translateX(var(--as-panel-w));
+  transition: transform 0.52s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.as-ad.is-open {
+  transform: translateX(0);
 }
 
 .as-tab {
@@ -3153,7 +3160,7 @@ body.theme-light .gim-panel {
 
 .as-panel {
   pointer-events: all;
-  width: 260px;
+  width: var(--as-panel-w);
   background: linear-gradient(160deg, #06141f, #040e17);
   border: 1px solid rgba(125, 245, 196, 0.25);
   border-right: none;
@@ -3163,8 +3170,6 @@ body.theme-light .gim-panel {
   flex-direction: column;
   gap: 12px;
   box-shadow: -8px 8px 40px rgba(0, 0, 0, 0.5);
-  transform: translateX(110%);
-  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
   overflow: hidden;
 }
@@ -3177,10 +3182,6 @@ body.theme-light .gim-panel {
   right: 0;
   height: 1px;
   background: linear-gradient(90deg, transparent, rgba(125, 245, 196, 0.5), transparent);
-}
-
-.as-ad.is-open .as-panel {
-  transform: translateX(0);
 }
 
 .as-close {
@@ -3254,8 +3255,8 @@ body.theme-light .gim-panel {
 }
 
 @media (max-width: 560px) {
-  .as-panel {
-    width: 220px;
+  .as-ad {
+    --as-panel-w: 220px;
   }
 
   .as-msg {

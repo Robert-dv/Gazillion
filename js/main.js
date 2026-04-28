@@ -1,4 +1,15 @@
 const body = document.body;
+
+const heroBgVideo = document.querySelector(".hero-video video");
+if (heroBgVideo) {
+  const setHeroSpeed = () => {
+    heroBgVideo.playbackRate = 0.5;
+  };
+  setHeroSpeed();
+  heroBgVideo.addEventListener("loadedmetadata", setHeroSpeed);
+  heroBgVideo.addEventListener("play", setHeroSpeed);
+}
+
 const menuToggle = document.getElementById("menuToggle");
 const navLinks = document.getElementById("navLinks");
 const scrollBar = document.querySelector(".scroll-bar");

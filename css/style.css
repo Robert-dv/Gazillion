@@ -2832,8 +2832,7 @@ body.theme-light .gim-panel {
   position: absolute;
   top: 0;
   left: 21px;
-  right: 21px;
-  width: calc(100% - 42px);
+  width: 75%;
   height: 60px;
   pointer-events: none;
   z-index: 1;

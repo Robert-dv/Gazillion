@@ -2709,6 +2709,18 @@ body.theme-light .gim-panel {
   box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
 }
 
+@media (min-width: 1100px) {
+  .project-showcase {
+    grid-template-columns: 360px 1px 1fr;
+  }
+}
+
+@media (min-width: 1400px) {
+  .project-showcase {
+    grid-template-columns: 400px 1px 1fr;
+  }
+}
+
 .pshow-left {
   padding: 36px 32px;
   display: flex;
@@ -2716,6 +2728,19 @@ body.theme-light .gim-panel {
   gap: 18px;
   border-right: 1px solid rgba(201, 213, 229, 0.1);
   background: linear-gradient(160deg, rgba(125, 245, 196, 0.04), transparent);
+  min-width: 0;
+}
+
+@media (min-width: 1100px) {
+  .pshow-left {
+    padding: 44px 40px;
+  }
+}
+
+.pshow-name {
+  overflow-wrap: break-word;
+  word-break: normal;
+  hyphens: none;
 }
 
 .pshow-meta {

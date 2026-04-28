@@ -487,6 +487,55 @@ body.theme-light .brand-name {
   letter-spacing: 0.12em;
 }
 
+.nav-socials {
+  display: none;
+  align-items: center;
+  gap: 6px;
+  padding-left: 14px;
+  margin-left: 2px;
+  border-left: 1px solid rgba(201, 213, 229, 0.18);
+}
+
+.nav-socials a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+}
+
+.nav-socials a:hover {
+  color: var(--accent);
+  background: rgba(125, 245, 196, 0.08);
+  transform: translateY(-1px);
+}
+
+.nav-socials a.whatsapp:hover {
+  color: #25d366;
+  background: rgba(37, 211, 102, 0.08);
+}
+
+.nav-socials svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+  display: block;
+}
+
+body.theme-light .nav-socials {
+  border-left-color: rgba(15, 23, 36, 0.16);
+}
+
+@media (min-width: 1024px) {
+  .nav-socials {
+    display: inline-flex;
+  }
+}
+
 .nav-links a {
   position: relative;
   padding-bottom: 4px;

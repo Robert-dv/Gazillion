@@ -47,29 +47,73 @@ a {
 }
 
 .nav-inner {
-  min-height: 72px;
+  min-height: 56px;
+  padding: 8px 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 24px;
+  gap: 20px;
 }
 
 .brand {
-  display: flex;
-  flex-direction: column;
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
   text-decoration: none;
+  color: inherit;
 }
 
-.brand span {
+.brand-mark {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  box-shadow:
+    0 6px 18px rgba(0, 0, 0, 0.45),
+    0 0 0 1px rgba(125, 245, 196, 0.18),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.brand:hover .brand-mark {
+  transform: rotate(-6deg) scale(1.04);
+  box-shadow:
+    0 8px 22px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(125, 245, 196, 0.45),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.brand-mark svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border-radius: 50%;
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.05;
+}
+
+.brand-name {
   font-family: "Orbitron", sans-serif;
-  letter-spacing: 0.16em;
+  font-weight: 700;
+  letter-spacing: 0.18em;
   font-size: 0.95rem;
+  color: var(--text);
 }
 
 .brand small {
   color: var(--muted);
   letter-spacing: 0.2em;
   font-size: 0.58rem;
+  margin-top: 2px;
 }
 
 .nav-links {
@@ -87,6 +131,60 @@ a {
 
 .nav-links a:hover {
   color: var(--accent);
+}
+
+.nav-socials {
+  display: none;
+  align-items: center;
+  gap: 6px;
+  padding-left: 16px;
+  margin-left: 4px;
+  border-left: 1px solid rgba(201, 213, 229, 0.18);
+}
+
+.nav-socials a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+}
+
+.nav-socials a:hover {
+  color: var(--accent);
+  background: rgba(125, 245, 196, 0.08);
+  transform: translateY(-1px);
+}
+
+.nav-socials svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+  display: block;
+}
+
+@media (min-width: 1024px) {
+  .nav-socials {
+    display: inline-flex;
+  }
+}
+
+@media (max-width: 540px) {
+  .brand-mark {
+    width: 32px;
+    height: 32px;
+  }
+  .brand-name {
+    font-size: 0.85rem;
+    letter-spacing: 0.16em;
+  }
+  .brand small {
+    font-size: 0.5rem;
+  }
 }
 
 .hero {

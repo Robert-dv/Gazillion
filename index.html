@@ -510,38 +510,52 @@
             <p class="eyebrow">Process</p>
             <h2>How we deliver intelligent systems.</h2>
           </div>
-          <div class="process-timeline">
-            <div class="pt-step reveal">
+          <div class="process-timeline" id="processTimeline">
+            <svg class="process-path" viewBox="0 0 1000 60" preserveAspectRatio="none" aria-hidden="true">
+              <defs>
+                <linearGradient id="ppGrad" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stop-color="#7df5c4"/>
+                  <stop offset="100%" stop-color="#2ed18f"/>
+                </linearGradient>
+                <filter id="ppGlow" x="-20%" y="-50%" width="140%" height="200%">
+                  <feGaussianBlur stdDeviation="3" result="blur"/>
+                  <feMerge>
+                    <feMergeNode in="blur"/>
+                    <feMergeNode in="SourceGraphic"/>
+                  </feMerge>
+                </filter>
+              </defs>
+              <path class="process-path-base" d="M 0 30 Q 250 0, 500 30 T 1000 30" />
+              <path class="process-path-fill" d="M 0 30 Q 250 0, 500 30 T 1000 30" filter="url(#ppGlow)" />
+            </svg>
+            <div class="pt-step reveal" data-pt-index="0">
               <div class="pt-marker">
                 <span class="pt-num">01</span>
-                <span class="pt-connector"></span>
               </div>
               <div class="pt-content">
                 <h3>Discovery</h3>
                 <p>We map your vision, users, and operational pain points to define a clear path forward.</p>
               </div>
             </div>
-            <div class="pt-step reveal">
+            <div class="pt-step reveal" data-pt-index="1">
               <div class="pt-marker">
                 <span class="pt-num">02</span>
-                <span class="pt-connector"></span>
               </div>
               <div class="pt-content">
                 <h3>Architecture</h3>
                 <p>We design scalable, secure foundations and data flows built for long-term resilience.</p>
               </div>
             </div>
-            <div class="pt-step reveal">
+            <div class="pt-step reveal" data-pt-index="2">
               <div class="pt-marker">
                 <span class="pt-num">03</span>
-                <span class="pt-connector"></span>
               </div>
               <div class="pt-content">
                 <h3>Build</h3>
                 <p>We ship performant systems with automation, CI/CD pipelines, and live monitoring.</p>
               </div>
             </div>
-            <div class="pt-step reveal pt-last">
+            <div class="pt-step reveal pt-last" data-pt-index="3">
               <div class="pt-marker">
                 <span class="pt-num">04</span>
               </div>

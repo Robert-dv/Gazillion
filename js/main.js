@@ -699,6 +699,89 @@ contactForm?.addEventListener("submit", (event) => {
   }
 });
 
+// ── Process Timeline: Scroll-Drawn Glowing Path ──────────────────────────────
+(function initProcessPath() {
+  const timeline = document.getElementById("processTimeline");
+  if (!timeline) return;
+
+  const fillPath = timeline.querySelector(".process-path-fill");
+  const steps = Array.from(timeline.querySelectorAll(".pt-step"));
+  if (!fillPath || steps.length === 0) return;
+
+  let pathLength = 0;
+  const setupPathLength = () => {
+    pathLength = fillPath.getTotalLength();
+    fillPath.style.strokeDasharray = String(pathLength);
+    fillPath.style.strokeDashoffset = String(pathLength);
+  };
+
+  const updatePath = () => {
+    if (window.innerWidth <= 760) {
+      fillPath.style.strokeDashoffset = "0";
+      steps.forEach((s) => s.classList.add("is-active"));
+      return;
+    }
+
+    const rect = timeline.getBoundingClientRect();
+    const viewH = window.innerHeight;
+    const start = viewH * 0.85;
+    const end = viewH * 0.25;
+    const range = start - end;
+    const passed = clamp((start - rect.top) / range, 0, 1);
+
+    fillPath.style.strokeDashoffset = String(pathLength * (1 - passed));
+
+    steps.forEach((step, idx) => {
+      const threshold = (idx + 0.6) / steps.length;
+      if (passed >= threshold) step.classList.add("is-active");
+      else step.classList.remove("is-active");
+    });
+  };
+
+  setupPathLength();
+  updatePath();
+  window.addEventListener("scroll", updatePath, { passive: true });
+  window.addEventListener("resize", () => {
+    setupPathLength();
+    updatePath();
+  });
+})();
+
+// ── Section-Aware Navbar (active link indicator) ─────────────────────────────
+(function initActiveNav() {
+  const links = Array.from(document.querySelectorAll(".nav-links a[href^='#']"));
+  if (links.length === 0) return;
+
+  const map = new Map();
+  links.forEach((link) => {
+    const id = link.getAttribute("href").slice(1);
+    const sec = document.getElementById(id);
+    if (sec) map.set(sec, link);
+  });
+  if (map.size === 0) return;
+
+  const sections = Array.from(map.keys());
+
+  const setActive = (link) => {
+    links.forEach((l) => l.classList.remove("is-active"));
+    if (link) link.classList.add("is-active");
+  };
+
+  const updateActive = () => {
+    const probe = window.innerHeight * 0.32;
+    let current = sections[0];
+    for (const sec of sections) {
+      const rect = sec.getBoundingClientRect();
+      if (rect.top - probe <= 0) current = sec;
+    }
+    setActive(map.get(current));
+  };
+
+  updateActive();
+  window.addEventListener("scroll", updateActive, { passive: true });
+  window.addEventListener("resize", updateActive);
+})();
+
 // ── AnyService Slide-In Ad ────────────────────────────────────────────────────
 (function initAsAd() {
   const asAd    = document.getElementById("asAd");

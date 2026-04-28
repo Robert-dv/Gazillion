@@ -18,7 +18,7 @@ A corporate portfolio website for Gazillion Company, a Rwanda-based IT and AI en
 ## Architecture
 
 - **Frontend:** Plain HTML, CSS, and Vanilla JavaScript served by a custom Node.js static file server on port 5000
-- **Backend API:** Express.js contact form email service on port 3000 (uses Nodemailer + SMTP)
+- **Backend API:** Express.js contact form email service on port 3000 (uses Nodemailer + SMTP). Note: the website's contact form now opens WhatsApp (+250784861283) directly via `wa.me` and no longer calls this API. The API is still available for future use.
 - **Package manager:** npm (backend only)
 
 ## Workflows

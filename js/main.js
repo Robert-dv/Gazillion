@@ -630,54 +630,56 @@ if (aboutTypedEl && aboutStreamEl) {
 
 // ── End IDE Terminal Animation ───────────────────────────────────────────────
 
-contactForm?.addEventListener("submit", async (event) => {
+const WHATSAPP_NUMBER = "250784861283";
+
+const buildWhatsappMessage = ({ name, email, company, message }) => {
+  const lines = [
+    "Hello Gazillion, I just contacted you through your website.",
+    "",
+    `Name: ${name}`,
+    `Email: ${email}`,
+    `Company: ${company || "Not provided"}`,
+    "",
+    "Message:",
+    message,
+  ];
+  return lines.join("\n");
+};
+
+contactForm?.addEventListener("submit", (event) => {
   event.preventDefault();
   if (!contactForm.reportValidity()) return;
 
-  const endpoint = getContactEndpoint(contactForm);
-  if (!endpoint || endpoint.includes("YOUR-RENDER-API")) {
-    setFormStatus("Contact endpoint is not set. Update it and try again.", "error");
+  const payload = getContactPayload(contactForm);
+
+  if (payload.website) {
+    setFormStatus("Thanks! Your message is on its way.", "success");
+    contactForm.reset();
     return;
   }
 
-  const payload = getContactPayload(contactForm);
   const submitButton = contactForm.querySelector("button[type='submit']");
   const originalLabel = submitButton?.textContent;
 
   try {
     if (submitButton) {
       submitButton.disabled = true;
-      submitButton.textContent = "Sending...";
+      submitButton.textContent = "Opening WhatsApp...";
     }
-    setFormStatus("Sending your request...");
+    setFormStatus("Opening WhatsApp to send your message...");
 
-    const response = await fetch(endpoint, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    });
+    const text = encodeURIComponent(buildWhatsappMessage(payload));
+    const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${text}`;
 
-    if (response.ok) {
-      setFormStatus("Thanks! Your message is on its way.", "success");
-      contactForm.reset();
-      setTimeout(() => {
-        window.location.href = "thank-you.html";
-      }, 800);
-      return;
+    const opened = window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+    if (!opened) {
+      window.location.href = whatsappUrl;
     }
 
-    let errorMessage = "Something went wrong. Please try again.";
-    try {
-      const data = await response.json();
-      if (data && data.error) {
-        errorMessage = data.error;
-      }
-    } catch (error) {
-      // Ignore JSON parse issues and use the default message.
-    }
-    setFormStatus(errorMessage, "error");
+    setFormStatus("Thanks! Continue the conversation on WhatsApp.", "success");
+    contactForm.reset();
   } catch (error) {
-    setFormStatus("Network error. Please try again.", "error");
+    setFormStatus("Could not open WhatsApp. Please try again.", "error");
   } finally {
     if (submitButton) {
       submitButton.disabled = false;

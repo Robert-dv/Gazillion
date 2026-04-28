@@ -782,6 +782,57 @@ contactForm?.addEventListener("submit", (event) => {
   window.addEventListener("resize", updateActive);
 })();
 
+// ── Service Cards: 3D Tilt + Cursor Spotlight ───────────────────────────────
+(function initCardTilt() {
+  const cards = document.querySelectorAll(".service-card");
+  if (cards.length === 0) return;
+  if (window.matchMedia("(hover: none)").matches) return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  const MAX_TILT = 8;
+
+  cards.forEach((card) => {
+    let rafId = null;
+    let pending = null;
+
+    const apply = () => {
+      if (!pending) return;
+      const { rx, ry, mx, my } = pending;
+      card.style.setProperty("--rx", `${rx}deg`);
+      card.style.setProperty("--ry", `${ry}deg`);
+      card.style.setProperty("--mx", `${mx}%`);
+      card.style.setProperty("--my", `${my}%`);
+      pending = null;
+      rafId = null;
+    };
+
+    card.addEventListener("mouseenter", () => {
+      card.classList.add("is-tilting");
+    });
+
+    card.addEventListener("mousemove", (e) => {
+      const r = card.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width;
+      const y = (e.clientY - r.top) / r.height;
+      pending = {
+        rx: clamp((0.5 - y) * MAX_TILT * 2, -MAX_TILT, MAX_TILT),
+        ry: clamp((x - 0.5) * MAX_TILT * 2, -MAX_TILT, MAX_TILT),
+        mx: x * 100,
+        my: y * 100,
+      };
+      if (!rafId) rafId = requestAnimationFrame(apply);
+    });
+
+    card.addEventListener("mouseleave", () => {
+      card.classList.remove("is-tilting");
+      card.style.setProperty("--rx", "0deg");
+      card.style.setProperty("--ry", "0deg");
+      card.style.setProperty("--mx", "50%");
+      card.style.setProperty("--my", "50%");
+    });
+  });
+})();
+
 // ── AnyService Slide-In Ad ────────────────────────────────────────────────────
 (function initAsAd() {
   const asAd    = document.getElementById("asAd");

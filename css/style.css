@@ -412,8 +412,8 @@ body.theme-light .hero-text .eyebrow {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
+  width: 54px;
+  height: 54px;
   flex-shrink: 0;
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), filter 0.35s ease;
 }
@@ -459,8 +459,8 @@ body.theme-light .brand-name {
 
 @media (max-width: 540px) {
   .brand-mark {
-    width: 36px;
-    height: 36px;
+    width: 44px;
+    height: 44px;
   }
   .brand-name {
     font-size: 0.85rem;
